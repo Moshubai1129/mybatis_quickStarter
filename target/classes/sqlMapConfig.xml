@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+        <configuration>
+            <!-- 加载外部的properties文件-->
+             <properties resource="jdbc.properties"></properties>
+
+            <!--给实体类的全限定名起别名-->
+            <typeAliases>
+               <!-- <typeAlias type="com.ch.pojo.User" alias="user"></typeAlias>-->
+              <!--  批量起别名，该包所有类本身的类名：别名还不区分大小写-->
+                <package name="com.ch.pojo"/>
+            </typeAliases>
+
+            <!-- environments:运行环境，配置开发，测试，生产环境-->
+             <environments default="development">
+                 <environment id="development">
+                     <!--transactionManager:当前事务交由jdbc管理-->
+                     <transactionManager type="JDBC"></transactionManager>
+                    <!-- POOLED:当前使用mybatis提供的连接池
+                    UNPOOLED:不使用连接池，每一次都新建一个连接-->
+                     <dataSource type="POOLED">
+                         <property name="driver" value="${jdbc.driver}"/>
+                         <property name="url" value="${jdbc.url}"/>
+                         <property name="username" value="${jdbc.username}"/>
+                         <property name="password" value="${jdbc.password}"/>
+                     </dataSource>
+                 </environment>
+             </environments>
+           <!-- 引入映射配置文件-->
+        <mappers>
+            <mapper resource="UserMapper.xml"></mapper>
+        </mappers>
+
+        </configuration>
